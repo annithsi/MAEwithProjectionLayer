@@ -15,9 +15,9 @@ class AutoEnc(nn.Module):
   def __init__(self):
       super(AutoEnc, self).__init__()
 
-      self.fc1 = nn.Linear(7, 3)
-      self.fc2 = nn.Linear(3, 3)
-      self.fc3 = nn.Linear(3, 6)
+      self.fc1 = nn.Linear(9, 5)
+      self.fc2 = nn.Linear(5, 5)
+      self.fc3 = nn.Linear(5, 6)
 
   def forward(self, x):
       x = F.relu(self.fc1(x))
@@ -109,15 +109,15 @@ def train_model(model,criterion,optimizer,dataloaders,epochs,check_every=None,ea
   plt.show()
 
   return best_params, end_params
-  
+
 
 def evaluate(net, inputs):
   net.eval()
   output_pred = []
 
   with torch.no_grad():
-    for input in tqdm(inputs):
-      output = net(torch.from_numpy(input).unsqueeze(0).float().to(device)).cpu().numpy()
+    for input_ in tqdm(inputs):
+      output = net(torch.from_numpy(input_).unsqueeze(0).float().to(device)).cpu().numpy()
       output_pred.append(output[0])
 
   return np.array(output_pred)
